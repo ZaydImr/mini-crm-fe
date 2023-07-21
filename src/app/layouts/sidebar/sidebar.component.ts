@@ -2,14 +2,14 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { ROUTES } from './menu-items';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule, NgIf } from '@angular/common';
 //declare var $: any;
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports:[RouterModule, CommonModule, NgIf],
+  imports:[RouterModule, CommonModule, NgIf, NgbDropdownModule],
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements OnInit {

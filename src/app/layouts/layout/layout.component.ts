@@ -2,17 +2,15 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit, HostListener } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
 import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
-import { NavigationComponent } from "src/app/shared/header/navigation.component";
-import { SidebarComponent } from "src/app/shared/sidebar/sidebar.component";
-
-//declare var $: any;
+import { NavigationComponent } from "src/app/layouts/header/navigation.component";
+import { SidebarComponent } from "src/app/layouts/sidebar/sidebar.component";
 
 @Component({
   selector: "app-full-layout",
   standalone: true,
   imports:[RouterModule, SidebarComponent, NavigationComponent, CommonModule, NgbCollapseModule],
-  templateUrl: "./full.component.html",
-  styleUrls: ["./full.component.scss"],
+  templateUrl: "./layout.component.html",
+  styleUrls: ["./layout.component.scss"],
 })
 export class FullComponent implements OnInit {
 

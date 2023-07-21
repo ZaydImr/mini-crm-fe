@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "nice-angular-lite": {
+    "msi-crm-fe": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -21,7 +21,7 @@
               "ng-apexcharts",
               "apexcharts"
             ],
-            "outputPath": "dist/nice-angular-lite",
+            "outputPath": "dist/msi-crm-fe",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -61,7 +61,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -70,10 +76,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "nice-angular-lite:build:production"
+              "browserTarget": "msi-crm-fe:build:production"
             },
             "development": {
-              "browserTarget": "nice-angular-lite:build:development"
+              "browserTarget": "msi-crm-fe:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +87,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "nice-angular-lite:build"
+            "browserTarget": "msi-crm-fe:build"
           }
         },
         "test": {

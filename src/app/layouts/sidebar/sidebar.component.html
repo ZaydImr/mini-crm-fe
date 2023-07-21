@@ -1,0 +1,28 @@
+<nav class="sidebar-nav">
+    <ul id="sidebarnav">
+        <!-- First level menu -->
+        <li class="sidebar-item" [class.active]="showMenu === sidebarnavItem.title"
+            *ngFor="let sidebarnavItem of sidebarnavItems"
+            [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
+            <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true">{{sidebarnavItem.title}}</div>
+            <a *ngIf="!sidebarnavItem.submenu.length;" class="sidebar-link waves-effect waves-dark"
+                [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null"
+                [ngClass]="[sidebarnavItem.class]" (click)="addExpandClass(sidebarnavItem.title)"
+                [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
+                <i [ngClass]="[sidebarnavItem.icon]"></i>
+                <span class="hide-menu">{{sidebarnavItem.title}}</span>
+            </a>
+            <div *ngIf="sidebarnavItem.submenu.length;" class="d-inline-block" ngbDropdown>
+                <span class="btn d-flex align-items-center" id="dropdown1" ngbDropdownToggle>
+                    {{sidebarnavItem.title}}
+                </span>
+                <div ngbDropdownMenu aria-labelledby="dropdown1">
+                    <a class="dropdown-item" *ngFor="let sidebarSubmenu of sidebarnavItem.submenu"
+                        [routerLink]="sidebarSubmenu.path">
+                        {{sidebarSubmenu.title}}
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</nav>

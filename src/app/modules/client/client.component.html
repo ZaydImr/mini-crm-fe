@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h3>Clients</h3>
+            <div class="btn btn-primary text-white">Add</div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle text-nowrap">
+                <thead>
+                    <tr>
+                        <th class="text-dark font-medium fs-4"></th>
+                        <th class="text-dark font-medium fs-4">Firstname</th>
+                        <th class="text-dark font-medium fs-4">Lastname</th>
+                        <th class="text-dark font-medium fs-4">Email</th>
+                        <th class="text-dark font-medium fs-4">PhoneNumber</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let client of clients'>
+                        <td class="p-2">
+                            <img [src]="client.logo" [alt]="client.firstName" height="50" style="border-radius: 5px;">
+                        </td>
+                        <td>
+                            <h5 class="mb-0 fw-normal">{{client.firstName}}</h5>
+                        </td>
+                        <td>
+                            <h5 class="mb-0 fw-normal">{{client.lastName}}</h5>
+                        </td>
+                        <td>
+                            <h5 class="mb-0 fw-normal">{{client.email}}</h5>
+                        </td>
+                        <td>
+                            <h5 class="mb-0 fw-normal">{{client.phoneNumber}}</h5>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

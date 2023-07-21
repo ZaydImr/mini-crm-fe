@@ -1,21 +1,25 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { FullComponent } from './layouts/full/full.component';
+import { UserService } from './services/user.service';
+import { AuthenticationGuard } from './guard/authenticated.guard';
 
 export const Approutes: Routes = [
   {
+    path: 'login',
+    loadComponent: () => import('./modules/login/login.component').then(m => m.LoginComponent)
+  },
+  {
+    canActivate: [AuthenticationGuard],
     path: '',
-    component: FullComponent,
+    loadComponent: ()=> import('./layouts/layout/layout.component').then(c => c.FullComponent),
     children: [
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
-        path: 'about',
-        loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
+        path: 'client',
+        loadComponent: () => import('./modules/client/client.component').then(m => m.ClientComponent)
       },
       {
         path: 'component',
@@ -23,8 +27,9 @@ export const Approutes: Routes = [
       }
     ]
   },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {
     path: '**',
-    redirectTo: '/starter'
+    redirectTo: '/'
   }
 ];

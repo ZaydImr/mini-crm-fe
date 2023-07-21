@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/services/user.service';
 
 declare var $: any;
 
@@ -15,7 +16,11 @@ export class NavigationComponent implements AfterViewInit {
 
   public showSearch = false;
 
-  constructor(private modalService: NgbModal) {
+  constructor(private userService: UserService) {
+  }
+
+  logout(): void{
+    this.userService.logout();
   }
 
   // This is for Notifications

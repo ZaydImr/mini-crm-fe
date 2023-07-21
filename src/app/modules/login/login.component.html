@@ -1,0 +1,35 @@
+<div class="vh-100 d-flex justify-content-center align-items-center">
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <div class="card bg-white">
+          <div class="card-body p-5">
+            <form [formGroup]="loginForm" (ngSubmit)="login()" class="mb-3 mt-md-4">
+              <h2 class="fw-bold mb-5 text-uppercase text-center">
+                <img src="assets/images/logos/crm-logo.png" alt="homepage" class="light-logo" width="130" />
+              </h2>
+
+              <ngb-alert *ngIf="this.errMessage" class=" bg-transparent border-danger border
+                  text-danger d-flex align-items-center fs-5">
+                {{this.errMessage}}
+              </ngb-alert>
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input formControlName="username" type="text" class="form-control" id="username"
+                  placeholder="OualidMarz">
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label ">Password</label>
+                <input formControlName="password" type="password" class="form-control" id="password"
+                  placeholder="*******">
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-outline-dark" type="submit">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
