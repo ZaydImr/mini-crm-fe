@@ -24,7 +24,10 @@
                   placeholder="*******">
               </div>
               <div class="d-grid">
-                <button class="btn btn-outline-dark" type="submit">Login</button>
+                <button *ngIf="!loadingLogin" class="btn btn-outline-dark" type="submit">Login</button>
+                <div *ngIf="loadingLogin" class="spinner-grow m-auto text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
               </div>
             </form>
           </div>

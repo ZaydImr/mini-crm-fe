@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, ObservableInput, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 
 @Injectable({
@@ -17,10 +17,14 @@ export class AuthenticationGuard implements CanActivate {
         if (e == true) {
           return true;
         }
-        else{
+        else {
           this.router.navigate(['/login']);
           return false;
         }
+      }),
+      catchError((err: any, caught: Observable<boolean>): ObservableInput<any> => {
+        this.router.navigate(['/login']);
+        return of(false);
       })
     );
   }

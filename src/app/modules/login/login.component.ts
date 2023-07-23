@@ -18,6 +18,7 @@ import { JwtResponse } from 'src/app/models/JwtResponse';
 export class LoginComponent implements OnInit {
 
   errMessage: string = '';
+  loadingLogin: boolean = false;
 
   loginForm: FormGroup = new FormGroup({
     'username': new FormControl(null, [Validators.required, Validators.minLength(6)]),
@@ -45,14 +46,24 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    this.loadingLogin = true;
+
     this.userService.login(this.loginForm.value['username'], this.loginForm.value['password']).subscribe({
       next: (res: JwtResponse) => {
         this.tokenService.saveUser(res);
         this.tokenService.saveToken(res.accessToken);
         this.router.navigate(['/dashboard']);
+        this.loadingLogin = false;
       },
       error: (err: any) => {
-        if(err.error)
+        this.loadingLogin = false;
+
+        if (err.status == 0) {
+          this.errMessage = "Something wrong with server !";
+          return;
+        }
+
+        if (err.error)
           this.errMessage = err.error;
       }
     });

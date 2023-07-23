@@ -1,6 +1,4 @@
-import { NgModule, inject } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { UserService } from './services/user.service';
+import { Routes } from '@angular/router';
 import { AuthenticationGuard } from './guard/authenticated.guard';
 
 export const Approutes: Routes = [
@@ -15,7 +13,7 @@ export const Approutes: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+        loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
         path: 'client',
