@@ -17,7 +17,7 @@ export const Approutes: Routes = [
       },
       {
         path: 'client',
-        loadComponent: () => import('./modules/client/client.component').then(m => m.ClientComponent)
+        loadComponent: () => import('./modules/client/client-list/client-list.component').then(m => m.ClientListComponent)
       },
       {
         path: 'component',

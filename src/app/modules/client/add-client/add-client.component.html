@@ -1,0 +1,58 @@
+<div class="modal-header">
+    <h3 class="modal-title">Add a Client</h3>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
+        
+    </button>
+</div>
+<hr>
+<div class="modal-body">
+    <form class="text-center" [formGroup]="addReactiveForm">
+        <div class="form-group row mb-2"> 
+            <label for="inputPassword" class="col-sm-4 col-form-label">First Name</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="firstName"  placeholder="firstname"/>
+            </div>
+        </div>
+        <div class="form-group row mb-2">
+            <label for="inputPassword" class="col-sm-4 col-form-label">Last Name</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="lastName" placeholder="lastname" />
+            </div>
+        </div>
+        <div class="form-group row mb-2">
+            <label for="inputPassword" class="col-sm-4 col-form-label">Email </label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="email" placeholder="email" />
+            </div>
+        </div>
+        <div class="form-group row mb-2">
+            <label for="inputPassword" class="col-sm-4 col-form-label">Phone</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="phoneNumber" placeholder="phone" />
+            </div>
+        </div>
+        <div class="form-group row mb-2">
+            <label for="inputPassword" class="col-sm-4 col-form-label">Address </label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="address" placeholder="address" />
+            </div>
+        </div>
+        <div class="form-group row mb-2">
+            <label for="inputPassword" class="col-sm-4 col-form-label">ICE </label>
+            <div class="col-sm-6">
+                <input type="number" class="form-control" formControlName="ICE" placeholder="ice" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputPassword" class="col-sm-4 col-form-label">Photo/Logo </label>
+            <div class="col-sm-6">
+                <input type="file" class="form-control" formControlName="logo" placeholder="photo" />
+            </div>
+        </div>
+    </form>
+</div> 
+<hr>
+<div class="modal-footer top1">
+    <button type="button" class="btn btn-info" (click)="addClient()">Add</button>
+    <button type="button" class="btn btn-info" (click)="closeModal()">Close</button>
+</div>
