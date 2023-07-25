@@ -1,0 +1,52 @@
+<div class="modal fade" id="add-edit-client" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content" (ngSubmit)="saveClient()">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">{{addEditService.client?.id ? 'Edit' : 'Add'}} Client</h1>
+        <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+      </div>
+      <div [formGroup]="clientForm" class="modal-body" >
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Firstname</label>
+          <div class="col-sm-10">
+            <input type="text" formControlName="firstname" class="form-control" placeholder="John">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Lastname</label>
+          <div class="col-sm-10">
+            <input type="text" formControlName="lastname" class="form-control" placeholder="Doe">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input type="email" formControlName="email" class="form-control" placeholder="xyz@exemple.com">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Phone number</label>
+          <div class="col-sm-10">
+            <input type="text" formControlName="phoneNumber" class="form-control" placeholder="0021264587124">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Address</label>
+          <div class="col-sm-10">
+            <textarea type="text" formControlName="address" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">ICE</label>
+          <div class="col-sm-10">
+            <input type="text" formControlName="ice" class="form-control" placeholder="xxxxxxxx">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+  </div>
+</div>

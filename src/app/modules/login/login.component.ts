@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
   loadingLogin: boolean = false;
 
   loginForm: FormGroup = new FormGroup({
-    'username': new FormControl(null, [Validators.required, Validators.minLength(6)]),
-    'password': new FormControl(null, [Validators.required, Validators.minLength(6)]),
+    'username': new FormControl(null, [Validators.required]),
+    'password': new FormControl(null, [Validators.required]),
   });
 
   constructor(private userService: UserService, private router: Router, private tokenService: TokenStorageService) { }
@@ -39,10 +39,6 @@ export class LoginComponent implements OnInit {
         this.errMessage = 'The username is required!';
       else if (this.loginForm.controls['password'].errors?.['required'])
         this.errMessage = 'The password is required!';
-      else if (this.loginForm.controls['username'].errors?.['minlength'])
-        this.errMessage = 'The username have to be long!';
-      else if (this.loginForm.controls['password'].errors?.['minlength'])
-        this.errMessage = 'The password have to be long!';
       return;
     }
 

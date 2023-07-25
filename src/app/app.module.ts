@@ -15,11 +15,13 @@ import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
 import { TokenInterceptor } from './token.interceptor';
+import { AddEditClientComponent } from './modules/client/add-edit/add-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    AddEditClientComponent
   ],
   imports: [
     CommonModule,

@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+.show-modal{
+    display: unset !important;
+    background-color: rgb(19 36 98 / 22%);
+    opacity: 1 !important;
+}
+.modal{
+    transition: 0.3s;
+}
