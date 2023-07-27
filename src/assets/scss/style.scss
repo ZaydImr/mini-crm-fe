@@ -1,6 +1,6 @@
-// 
-// Xtreme Angular
-// 
+// Toastr
+@import 'ngx-toastr/toastr';
+
 
 //(Required file)
 @import "variable";
@@ -19,3 +19,8 @@
 
 //In This scss you can write your scss
 @import "custom";
+
+.swal2-confirm{
+    background-color: $primary !important;
+    border-color: $primary !important;
+}

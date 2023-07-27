@@ -12,6 +12,8 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { Approutes } from './app-routing.module';
+import { ToastrModule } from 'ngx-toastr';
+
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
 import { TokenInterceptor } from './token.interceptor';
@@ -29,6 +31,7 @@ import { TokenInterceptor } from './token.interceptor';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
+    ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
     RouterModule.forRoot(Approutes, { useHash: false })
   ],
   providers: [

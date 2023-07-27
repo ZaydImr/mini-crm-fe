@@ -1,0 +1,161 @@
+<div class="content">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card card-user">
+                <div class="card-header">
+                    <h4 class="mb-0">User</h4>
+                </div>
+                <hr class="my-0">
+                <div class="">
+                    <p class="card-text"></p>
+                    <div class="author p-1 text-center">
+                        <div class="title">
+                            <label class="hoverable" for="fileInput">
+                                <img class="avatar mb-2"
+                                    [src]="imageUrl ? imageUrl : 'assets/images/default-avatar.png'">
+                                <small class="hover-text">Choose image</small>
+                                <div class="background"></div>
+                            </label>
+                            <br />
+                            <input id="fileInput" type='file' (change)="selectFile($event)">
+                        </div>
+                        <div [innerHtml]='msg' *ngIf="msg" class="alert">
+                        </div>
+                        <a *ngIf="imageUrl" (click)="deletePicture()" class="alert pointer"><i
+                                class="fa fa-ban"></i>Remove</a>
+
+                        <h3 class="title mt-2">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</h3>
+                        <h4 class="description">{{ currentUser?.username }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card user-card">
+                <form [formGroup]="userForm" class="needs-validation" name="form" (ngSubmit)="updateUser()" novalidate>
+                    <div class="card-header">
+                        <h4 class=" mb-0">User informations</h4>
+                    </div>
+                    <hr class="my-0">
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-3 pr-md-1">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input class="form-control" placeholder="JoeDoe" type="text"
+                                        value="{{currentUser?.username}}" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="col-md-4 pl-md-1">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Password</label>
+                                    <div class="form-group inner-addon right-addon">
+                                        <div class="input-group">
+                                            <input name="password" [type]="showPasswordOnPress ? 'text' : 'password'"
+                                                class="form-control" placeholder="*******" formControlName="password"
+                                                name="password">
+                                            <div (mousedown)="showPasswordOnPress = !showPasswordOnPress"
+                                                (mouseup)="showPasswordOnPress = !showPasswordOnPress">
+                                                <i alt="show" class="fas fa-eye eye-show"
+                                                    [class.hide]="showPasswordOnPress"></i>
+                                                <i alt="hide" class="fas fa-eye-slash eye-hide"
+                                                    [class.hide]="!showPasswordOnPress"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 pl-md-1">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    <input class="form-control" formControlName="email" name="email" type="email"
+                                        placeholder="joe@doe.xyz"
+                                        class="form-control {{ !userForm.controls['email'].valid && userForm.controls['email'].touched ? 'error' : '' }}" />
+                                    <!-- <div
+                                        *ngIf="userForm.controls.email.errors?.required && (userForm.controls.email.touched || formSubmited)">
+                                        <label class="error err">{{ content?.emailRequired }}</label>
+                                    </div> -->
+                                    <!-- <div *ngIf="userForm.controls.email.errors?.pattern">
+                                        <label class="error err">{{ content?.invalidEmail }}</label>
+                                    </div>
+                                    <div *ngIf="userForm.controls.email.errors?.maxlength">
+                                        <label class="error err">{{ content?.emailTooLong }}</label>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 pr-md-1">
+                                <div class="form-group">
+                                    <label>First name</label>
+                                    <input class="form-control" formControlName="firstName" name="firstName"
+                                        placeholder="Joe"
+                                        class="form-control {{ !userForm.controls['firstName'].valid && userForm.controls['firstName'].touched ? 'error' : '' }}" />
+                                    <!-- <div
+                                        *ngIf="userForm.controls.firstName.errors?.required && (userForm.controls.firstName.touched || formSubmited)">
+                                        <label class="error err">{{ content?.firstnameRequired }}</label>
+                                    </div>
+                                    <div *ngIf="userForm.controls.firstName.errors?.pattern">
+                                        <label class="error err">{{ content?.invalidFirstname }}</label>
+                                    </div>
+                                    <div *ngIf="userForm.controls.firstName.errors?.maxlength">
+                                        <label class="error err">{{ content?.firstnameTooLong }}</label>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-md-4 px-md-1">
+                                <div class="form-group">
+                                    <label>Last name</label>
+                                    <input class="form-control" formControlName="lastName" name="lastName"
+                                        placeholder="Doe"
+                                        class="form-control {{ !userForm.controls['lastName'].valid && userForm.controls['lastName'].touched ? 'error' : '' }}" />
+                                    <!-- <div
+                                        *ngIf="userForm.controls.lastName.errors?.required && (userForm.controls.lastName.touched || formSubmited)">
+                                        <label class="error err">{{ content?.lastnameRequired }}</label>
+                                    </div>
+                                    <div *ngIf="userForm.controls.lastName.errors?.pattern">
+                                        <label class="error err">{{ content?.invalidLastname }}</label>
+                                    </div>
+                                    <div *ngIf="userForm.controls.lastName.errors?.maxlength">
+                                        <label class="error err">{{ content?.lastnameTooLong }}</label>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-md-4 pr-md-1">
+                                <div class="form-group">
+                                    <label>Phone number</label>
+                                    <input class="form-control" formControlName="phoneNumber" name="phoneNumber"
+                                        placeholder="06XXXXXXXX"
+                                        class="form-control {{ !userForm.controls['phoneNumber'].valid && userForm.controls['phoneNumber'].touched ? 'error' : '' }}" />
+                                    <!-- <div
+                                        *ngIf="userForm.controls.phoneNumber.errors?.required && (userForm.controls.phoneNumber.touched || formSubmited)">
+                                        <label class="error err">{{ content?.phoneNumberRequired }}</label>
+                                    </div> -->
+                                    <!-- <div *ngIf="userForm.controls['phoneNumber'].errors['pattern']">
+                                        <label class="error err">{{ content?.invalidPhoneNumber }}</label>
+                                    </div>
+                                    <div *ngIf="userForm.controls['phoneNumber'].errors['maxlength']">
+                                        <label class="error err">{{ content?.phoneNumberTooLong }}</label>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-0">
+                    <div class="card-footer">
+                        <button class="btn btn-fill btn-primary text-white" type="submit" *ngIf="!formSubmited"
+                            [disabled]="!userForm.touched && !imageChanged">Save</button>
+                        <button class="btn btn-fill btn-info-states d-flex gap-2" type="button" disabled *ngIf="formSubmited">
+                            Loading...
+                            <div class="spinner-border" style="width: 1.25rem; height: 1.25rem; display: block;"
+                                role="status">
+                                <span class="sr-only"></span>
+                            </div>
+                        </button>
+                        <small class="text-danger pe-2" *ngIf="imageChanged">Click save to save image</small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

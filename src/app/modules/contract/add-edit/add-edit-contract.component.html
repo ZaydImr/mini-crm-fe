@@ -1,0 +1,52 @@
+<form [formGroup]="entityFrm">
+    <div class="modal-header">
+        <h4 class="modal-title">{{numContract ? 'Edit' : 'Add'}} a contract</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <hr class="mt-0">
+    <div class="modal-body py-0">
+        <div>
+            <div class="form-group row mb-2"> 
+                <label class="col-sm-4 col-form-label">Num Contract</label>
+                <div class="col">
+                    <input type="text" class="form-control" formControlName="numContract"  placeholder="XXXXXXX" value="{{entity?.numContract}}"/>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label class="col-sm-4 col-form-label">Start date</label>
+                <div class="col">
+                    <input type="date" class="form-control" formControlName="startDate" value="{{entity?.startDate | date }}"/>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label class="col-sm-4 col-form-label">End date</label>
+                <div class="col">
+                    <input type="date" class="form-control" formControlName="endDate" value="{{entity?.endDate | date }}"/>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label class="col-sm-4 col-form-label">Type</label>
+                <div class="col">
+                    <select class="form-select" formControlName="type">
+                        <option value="Vente">Vente</option>
+                        <option value="Achat">Achat</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Client</label>
+                <div class="col">
+                    <select class="form-select" [(ngModel)]="client_id" [ngModelOptions]="{standalone: true}">
+                        <option *ngFor="let cl of clients" [value]="cl.id">{{cl.firstName + ' ' + cl.lastName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-danger mb-0 mt-2">{{errMessage}}</div>
+    </div> 
+    <hr class="mb-0">
+    <div class="modal-footer top1">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="submit" class="btn btn-primary text-white" (click)="updateClient()">{{numContract ? 'Save' : 'Add'}}</button>
+    </div>
+</form>

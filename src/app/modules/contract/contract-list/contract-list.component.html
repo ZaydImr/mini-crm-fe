@@ -1,0 +1,44 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h3>Contracts</h3>
+            <div class="btn btn-primary text-white" (click)="openAddEdit()">Add</div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped align-middle text-nowrap">
+                <thead>
+                    <tr>
+                        <th class="text-dark font-medium fs-4">Num Contract</th>
+                        <th class="text-dark font-medium fs-4">Start date</th>
+                        <th class="text-dark font-medium fs-4">End date</th>
+                        <th class="text-dark font-medium fs-4">Type</th>
+                        <th class="text-dark font-medium fs-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let contract of contracts'>
+                        <td>
+                            <h5 class="mb-0 fw-normal">{{contract.numContract }}</h5>
+                        </td>
+                        <td>
+                            <h5 class="mb-0 fw-normal">{{contract.startDate | date}}</h5>
+                        </td>
+                        <td>
+                            <h5 class="mb-0 fw-normal">{{contract.endDate | date}}</h5>
+                        </td>
+                        <td>
+                            <h5 class="mb-0 fw-normal">{{contract.type}}</h5>
+                        </td>
+                        <td class="text-center">
+                            <a data-tip="edit" class="aMargin text-primary pointer p-2" title="Edit"
+                                (click)="openAddEdit(contract.numContract)"><i class="bi bi-pencil-square"></i></a>
+                            <a data-tip="delete" class="aMargin text-danger pointer p-2" title="Delete"
+                                (click)="delete(contract.numContract)"><i class="bi bi-trash-fill"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

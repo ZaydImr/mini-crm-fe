@@ -1,0 +1,44 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h3>Affairs</h3>
+            <div class="btn btn-primary text-white" (click)="openAddEdit()">Add</div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped align-middle text-nowrap">
+                <thead>
+                    <tr>
+                        <th class="text-dark font-medium fs-4">Id</th>
+                        <th class="text-dark font-medium fs-4">Title</th>
+                        <th class="text-dark font-medium fs-4">Type</th>
+                        <th class="text-dark font-medium fs-4">Client</th>
+                        <th class="text-dark font-medium fs-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let affair of affairs'>
+                        <td>
+                            <h5 class="mb-0 fw-normal">{{affair.id }}</h5>
+                        </td>
+                        <td>
+                            <h5 class="mb-0 fw-normal">{{affair.title}}</h5>
+                        </td>
+                        <td>
+                            <h5 class="mb-0 fw-normal">{{affair.type}}</h5>
+                        </td>
+                        <td>
+                            <h5 class="mb-0 fw-normal">{{getClientFullname(affair.client)}}</h5>
+                        </td>
+                        <td class="text-center">
+                            <a data-tip="edit" class="aMargin text-primary pointer p-2" title="Edit"
+                                (click)="openAddEdit(affair.id)"><i class="bi bi-pencil-square"></i></a>
+                            <a data-tip="delete" class="aMargin text-danger pointer p-2" title="Delete"
+                                (click)="delete(affair.id)"><i class="bi bi-trash-fill"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

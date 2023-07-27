@@ -3,84 +3,68 @@ import { Client } from 'src/app/models/Client';
 import { CommonModule } from '@angular/common';
 import { ClientService } from 'src/app/services/client.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AddClientComponent } from '../add-client/add-client.component';
-import Swal from 'sweetalert2';
-import { UpdateClientComponent } from '../update-client/update-client.component';
+import { AddEditClientComponent } from '../add-edit/add-edit-client.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   standalone: true,
   selector: 'app-client',
   templateUrl: './client-list.component.html',
-  styleUrls: ['./client-list.component.scss'],
   imports: [CommonModule]
 })
 export class ClientListComponent implements OnInit {
 
   clients: Client[] = [];
 
-  constructor(private clientService: ClientService, private modalService: NgbModal) { }
+  constructor(private clientService: ClientService, private modalService: NgbModal, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-   this.refreshClient();
+    this.refreshClient();
   }
 
-  openAddModal() {
-    const modalRef = this.modalService.open(AddClientComponent, {
-      windowClass: "dark-modal",
-      modalDialogClass: " modal-lg",
-    });
-    modalRef.componentInstance.isAdded.subscribe(($event: any) => {
-      if($event){
-        this.ngOnInit();
-      }
-    })
-    modalRef.result.then((result) => {
-      if (result) {
-        console.log(result);
-      }
-    }).catch((error) => { });
-  }
-
-  openUpdatecomponent(client_id: any) {
-    const modalRef = this.modalService.open(UpdateClientComponent, {
+  openAddEdit(client_id?: number) {
+    const modalRef = this.modalService.open(AddEditClientComponent, {
       windowClass: "dark-modal",
       modalDialogClass: " modal-lg",
     });
     modalRef.componentInstance.client_id = client_id;
     modalRef.componentInstance.isUpdated.subscribe(($event: any) => {
-      if($event){
+      if ($event) {
         this.ngOnInit();
       }
     })
-    modalRef.result.then((result) => {
-      if (result) {
-        console.log(result);
-      }
-    }).catch((error) => { });
+    modalRef.result.then((result) => { }).catch((error) => { });
   }
 
   deleteClient(client_id: any) {
-    Swal.fire({
-      title: "Deletion",
-      text: "Are you sure about deleting this client ?",
-      icon: "warning",
-      iconColor: "#8B0000",
-      showCancelButton: true,
-      confirmButtonText: "Yes detete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.clientService.deleteClient(client_id).subscribe( () => {
-          this.refreshClient();
-        });
+    import('sweetalert2').then(Swal => {
+      Swal.default.fire({
+        title: "Are you sure?",
+        text: "You wount be able to revert this.",
+        icon: "warning",
+        iconColor: "#8B0000",
+        showCancelButton: true,
+        confirmButtonText: "Yes detete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.clientService.deleteClient(client_id).subscribe(() => {
+            this.refreshClient();
+            this.toastr.success(`Client deleted succsessfuly.`);
+          });
+        }
+      });
+    });
+  }
+
+  refreshClient() {
+    this.clientService.getAll().subscribe({
+      next: res => {
+        this.clients = res;
+      },
+      error: () => {
+        this.toastr.error(`Something went wrong!`);
       }
     });
   }
 
-  refreshClient(){
-    this.clientService.getAll().subscribe({
-      next: res => {
-        this.clients = res;
-      }
-    })
-  }
 }

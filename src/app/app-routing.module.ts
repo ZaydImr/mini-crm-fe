@@ -20,8 +20,16 @@ export const Approutes: Routes = [
         loadComponent: () => import('./modules/client/client-list/client-list.component').then(m => m.ClientListComponent)
       },
       {
-        path: 'component',
-        loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
+        path: 'contract',
+        loadComponent: () => import('./modules/contract/contract-list/contract-list.component').then(m => m.ContractListComponent)
+      },
+      {
+        path: 'affair',
+        loadComponent: () => import('./modules/affair/affair-list/affair-list.component').then(m => m.AffairListComponent)
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./modules/profile/profile.component').then(m => m.ProfileComponent)
       }
     ]
   },

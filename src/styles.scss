@@ -1,1 +1,84 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --bs-body-bg: #fff;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+#main-wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-wrapper {
+    height: 100%;
+    overflow: auto;
+}
+
+.card {
+    box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.05);
+}
+
+.user-card {
+    .card-footer {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+}
+
+.card-user {
+    .avatar {
+        width: 200px;
+        height: 200px;
+        border: 9px solid #13334c;
+        border-bottom-color: transparent;
+        background-color: transparent;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        margin-bottom: 15px;
+    }
+
+    #fileInput {
+        display: none;
+    }
+
+    .hoverable {
+        position: relative;
+        cursor: pointer;
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        .hover-text {
+            position: absolute;
+            display: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+        .background {
+            position: absolute;
+            display: none;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+            border-radius: 50%;
+            z-index: 1;
+        }
+    }
+
+    .hoverable:hover .hover-text {
+        display: block;
+    }
+
+    .hoverable:hover .background {
+        display: block;
+    }
+}

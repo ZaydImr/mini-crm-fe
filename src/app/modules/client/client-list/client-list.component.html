@@ -2,11 +2,11 @@
     <div class="card-body">
         <div class="d-flex justify-content-between">
             <h3>Clients</h3>
-            <div class="btn btn-primary text-white" (click)="openAddModal()">Add</div>
+            <div class="btn btn-primary text-white" (click)="openAddEdit()">Add</div>
         </div>
 
         <div class="table-responsive">
-            <table class="table align-middle text-nowrap">
+            <table id="datatable" datatable class="table table-striped align-middle text-nowrap hover">
                 <thead>
                     <tr>
                         <th class="text-dark font-medium fs-4"></th>
@@ -14,8 +14,6 @@
                         <th class="text-dark font-medium fs-4">Lastname</th>
                         <th class="text-dark font-medium fs-4">Email</th>
                         <th class="text-dark font-medium fs-4">PhoneNumber</th>
-                        <th class="text-dark font-medium fs-4">Address</th>
-                        <th class="text-dark font-medium fs-4">ICE</th>
                         <th class="text-dark font-medium fs-4">Actions</th>
                     </tr>
                 </thead>
@@ -36,15 +34,9 @@
                         <td>
                             <h5 class="mb-0 fw-normal">{{client.phoneNumber}}</h5>
                         </td>
-                        <td>
-                            <h5 class="mb-0 fw-normal">{{client.address}}</h5>
-                        </td>
-                        <td>
-                            <h5 class="mb-0 fw-normal">{{client.ICE}}</h5>
-                        </td>
                         <td class="text-center">
-                            <a data-tip="edit" class="aMargin pointer p-2" title="Edit" (click)="openUpdatecomponent(client.id)"><i class="fa fa-edit" ></i></a>
-                            <a data-tip="delete" class="aMargin pointer p-2" title="Delete" (click)="deleteClient(client.id)"><i class="fa fa-trash"></i></a>
+                            <a data-tip="edit" class="aMargin text-primary pointer p-2" title="Edit" (click)="openAddEdit(client.id)"><i class="bi bi-pencil-square"></i></a>
+                            <a data-tip="delete" class="aMargin text-danger pointer p-2" title="Delete" (click)="deleteClient(client.id)"><i class="bi bi-trash-fill"></i></a>
                         </td>
                     </tr>
                 </tbody>

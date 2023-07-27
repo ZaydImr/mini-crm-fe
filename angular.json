@@ -19,9 +19,10 @@
           "options": {
             "allowedCommonJsDependencies": [
               "ng-apexcharts",
-              "apexcharts"
+              "apexcharts",
+              "sweetalert2"
             ],
-            "outputPath": "dist/msi-crm-fe",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -53,7 +54,13 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.development.ts",
+                  "with": "src/environments/environment.ts"
+                }
+              ]
             },
             "development": {
               "buildOptimizer": false,
