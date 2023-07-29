@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { UploaderService } from 'src/app/services/uploader.service';
 import { UserService } from 'src/app/services/user.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { JwtResponse } from 'src/app/models/JwtResponse';
 
 @Component({
   standalone: true,
@@ -53,6 +54,10 @@ export class ProfileComponent {
           this.uploaderService.upload(this.image).subscribe(
             res => {
               if (this.currentUser) {
+                let user: JwtResponse = this.tokenStorage.getUser() as JwtResponse;
+                user.picture = res.message;
+                this.tokenStorage.saveUser(user);
+
                 this.currentUser.picture = res.message;
                 this.imageUrl = this.baseUrl + res.message;
                 this.userService.update(this.currentUser as User).subscribe(

@@ -9,6 +9,8 @@ import { ClientService } from 'src/app/services/client.service';
 import { AffaiService } from 'src/app/services/affair.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { User } from 'src/app/models/User';
+import { JwtResponse } from 'src/app/models/JwtResponse';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-update-affair',
@@ -57,7 +59,7 @@ export class AddEditAffairComponent implements OnInit {
     this.getClients();
   }
 
-  updateClient(): void {
+  updateAffair(): void {
     this.errMessage = '';
     if (this.entityFrm.invalid || !this.client_id) {
       this.errMessage = 'Fill the form !';
@@ -67,7 +69,9 @@ export class AddEditAffairComponent implements OnInit {
         title: this.entityFrm.value.title,
         object: this.entityFrm.value.object,
         type: this.entityFrm.value.type,
-        user: this.tokenService.getUser() as User,
+        user: {
+          username: (this.tokenService.getUser() as JwtResponse).username
+        },
         client: this.getClient(this.client_id as number),
       };
 
@@ -125,8 +129,17 @@ export class AddEditAffairComponent implements OnInit {
     });
   }
 
-  getClient(client_id: number): Client {
+  getClient(client_id?: number): Client {
     return this.clients.filter(cl => cl.id == client_id)[0];
+  }
+
+  getImageUrl(logo: string): string {
+    return `${environment.apiUrl}file/find/${logo}`;
+  }
+
+  getClientLogo(client_id?: number): string | undefined {
+    let logo = this.getClient(client_id)?.logo;
+    return logo ? this.getImageUrl(logo) : undefined;
   }
 
 }

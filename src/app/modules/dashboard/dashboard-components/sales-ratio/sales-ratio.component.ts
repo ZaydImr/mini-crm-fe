@@ -11,6 +11,9 @@ import {
   ApexTheme,
   ApexGrid
 } from 'ng-apexcharts';
+import { firstValueFrom } from 'rxjs';
+import { Statistic } from 'src/app/models/Statistic';
+import { AffaiService } from 'src/app/services/affair.service';
 
 export type salesChartOptions = {
   series: ApexAxisChartSeries | any;
@@ -34,19 +37,12 @@ export type salesChartOptions = {
 export class SalesRatioComponent implements OnInit {
 
   @ViewChild("chart") chart: ChartComponent = Object.create(null);
-  public salesChartOptions: Partial<salesChartOptions>;
-  constructor() {
+  public salesChartOptions!: Partial<salesChartOptions>;
+  chartData: {name: string, data: number[]}[] = [];
+
+  constructor(private affairService: AffaiService) {    
     this.salesChartOptions = {
-      series: [
-        {
-          name: "Iphone 13",
-          data: [24.5, 28.3, 42.7, 32, 34.9, 48.6, 40],
-        },
-        {
-          name: "Oneplue 9",
-          data: [8.9, 5.8, 21.9, 5.8, 16.5, 6.5, 14.5],
-        },
-      ],
+      series: [],
       chart: {
         fontFamily: 'Rubik,sans-serif',
         height: 250,
@@ -70,24 +66,45 @@ export class SalesRatioComponent implements OnInit {
         size: 3
       },
       xaxis: {
-        categories: [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6",
-          "7",
-          "8",
-        ],
+        categories: this.getMonths(),
       },
       tooltip: {
         theme: 'dark'
       }
     };
+   }
+
+  async ngOnInit() {
+    let statistics: Statistic[] = await firstValueFrom(this.affairService.getStatistics());
+    
+    this.chartData = [{
+      name: 'Affaires',
+      data: statistics.map(st => st.count)
+    }];
   }
 
-  ngOnInit(): void {
+  getMonths(): string[] {
+    let months: string[] = [];
+    
+    for(let i=11; i>=0; i--){
+      let date = new Date();
+      let current_month = date.getMonth() + 1;
+      let current_year = date.getFullYear();
+
+      let month = current_month;
+      let year = current_year;
+
+      if(current_month-i<1){
+        month = current_month-i + 12;
+        year = current_year - 1;
+      }
+      else{
+        month = current_month-i;
+      }
+      months.push(`${month} - ${year}`);
+    }
+
+    return months;
   }
 
 }

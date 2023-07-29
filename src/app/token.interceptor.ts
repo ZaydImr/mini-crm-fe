@@ -4,10 +4,10 @@ import { TokenStorageService } from "./services/token-storage.service";
 
 export function TokenInterceptor(request: HttpRequest<unknown>, next: HttpHandlerFn) {
     const tokenService = inject(TokenStorageService);
-    let token = tokenService.getToken();
+    let user = tokenService.getUser();
     const clonedRequest = request.clone({
         setHeaders: {
-            Authorization: `Bearer ${token}`
+            Authorization: `${user?.type} ${user?.accessToken}`
         }
     });
     return next(clonedRequest).pipe()

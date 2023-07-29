@@ -14,23 +14,27 @@ export class ContractService {
 
   constructor(private http: HttpClient) { }
 
-  getAll() : Observable<Contract[]>{
+  getAll(): Observable<Contract[]> {
     return this.http.get<Contract[]>(`${environment.apiUrl}${this.prefix}/all`);
   }
 
-  getById(entity_id : number): Observable<Contract>{
+  getById(entity_id: number): Observable<Contract> {
     return this.http.get<Contract>(`${environment.apiUrl}${this.prefix}/find/${entity_id}`);
   }
 
-  add(entity : Contract) : Observable<Contract>{
+  getCurrentMonthCount(): Observable<MessageResponse> {
+    return this.http.get<MessageResponse>(`${environment.apiUrl}${this.prefix}/month-count`);
+  }
+
+  add(entity: Contract): Observable<Contract> {
     return this.http.post<Contract>(`${environment.apiUrl}${this.prefix}/add`, entity);
   }
 
-  update(entity : Contract) : Observable<Contract>{
+  update(entity: Contract): Observable<Contract> {
     return this.http.put<Contract>(`${environment.apiUrl}${this.prefix}/update`, entity);
   }
 
-  delete(entity_id : number) : Observable<MessageResponse>{
+  delete(entity_id: number): Observable<MessageResponse> {
     return this.http.delete<MessageResponse>(`${environment.apiUrl}${this.prefix}/delete/${entity_id}`);
   }
 }

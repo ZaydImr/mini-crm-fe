@@ -7,6 +7,7 @@ import { Contract } from 'src/app/models/Contract';
 import { Client } from 'src/app/models/Client';
 import { ClientService } from 'src/app/services/client.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-update-contract',
@@ -118,8 +119,17 @@ export class AddEditContractComponent implements OnInit {
     });
   }
 
-  getClient(client_id: number): Client {
+  getClient(client_id?: number): Client {
     return this.clients.filter(cl => cl.id == client_id)[0];
+  }
+
+  getImageUrl(logo: string): string {
+    return `${environment.apiUrl}file/find/${logo}`;
+  }
+
+  getClientLogo(client_id?: number): string | undefined {
+    let logo = this.getClient(client_id)?.logo;
+    return logo ? this.getImageUrl(logo) : undefined;
   }
 
 }

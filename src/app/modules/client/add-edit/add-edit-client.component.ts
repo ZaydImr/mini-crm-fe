@@ -5,6 +5,8 @@ import { Client } from 'src/app/models/Client';
 import { UntypedFormGroup, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { UploaderService } from 'src/app/services/uploader.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-update-client',
@@ -28,8 +30,9 @@ export class AddEditClientComponent implements OnInit {
   @Output() public isUpdated: EventEmitter<any> = new EventEmitter();
   client?: Client;
   errMessage?: string;
+  image?: File;
 
-  constructor(private activeModal: NgbActiveModal, private clientService: ClientService, private fromBuilder: UntypedFormBuilder, private toastr: ToastrService) { }
+  constructor(private activeModal: NgbActiveModal, private clientService: ClientService, private uploaderService: UploaderService, private fromBuilder: UntypedFormBuilder, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     if (this.client_id) {
@@ -48,7 +51,7 @@ export class AddEditClientComponent implements OnInit {
     }
   }
 
-  updateClient(): void {
+  async updateClient(): Promise<void> {
     this.errMessage = '';
     if (this.clientFrm.invalid) {
       this.errMessage = 'Fill the form !';
@@ -64,6 +67,10 @@ export class AddEditClientComponent implements OnInit {
         ice: this.clientFrm.value.ice,
         logo: this.clientFrm.value.logo,
       };
+      if(this.image){
+        let messageResponse = await firstValueFrom(this.uploaderService.upload(this.image as File));
+        this.client.logo = messageResponse.message;
+      }
 
       if (this.client_id) {
         this.clientService.updateClient(this.client).subscribe({
@@ -106,6 +113,28 @@ export class AddEditClientComponent implements OnInit {
 
   closeModal(): void {
     this.activeModal.close();
+  }
+
+  selectFile(event: any): void {
+    if (!event.target.files[0] || event.target.files[0].length == 0) {
+      this.errMessage = "You must select an image";
+      return;
+    }
+
+    var mimeType = event.target.files[0].type;
+
+    if (mimeType.match(/image\/*/) == null) {
+      this.errMessage = "Only images are supported";
+      return;
+    }
+
+    var reader = new FileReader();
+    this.image = event.target.files[0];
+    reader.readAsDataURL(event.target.files[0]);
+
+    reader.onload = (_event) => {
+      this.errMessage = "";
+    }
   }
 
 }

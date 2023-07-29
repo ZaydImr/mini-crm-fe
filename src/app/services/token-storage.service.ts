@@ -12,7 +12,7 @@ export class TokenStorageService {
 
   constructor() { }
 
-  public getUser(): User | null {
+  public getUser(): JwtResponse | null {
     let user = localStorage.getItem(USER_KEY);
     if (user) {
       return JSON.parse(user);

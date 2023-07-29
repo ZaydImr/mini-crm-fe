@@ -20,7 +20,7 @@
                 <tbody>
                     <tr *ngFor='let client of clients'>
                         <td class="p-2">
-                            <img [src]="client.logo" [alt]="" height="50" style="border-radius: 5px;">
+                            <img [src]="client.logo ? getImageUrl(client.logo) : null" [alt]="" height="50" style="border-radius: 5px;">
                         </td>
                         <td>
                             <h5 class="mb-0 fw-normal">{{client.firstName}}</h5>

@@ -4,6 +4,7 @@ import { Observable, retry } from 'rxjs';
 import { Client } from '../models/Client';
 import { environment } from 'src/environments/environment.development';
 import { MessageResponse } from '../models/MessageResponse';
+import { TopClient } from '../models/TopClient';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,14 @@ export class ClientService {
 
   getClientById(client_id : number): Observable<Client>{
     return this.http.get<Client>(`${environment.apiUrl}${this.prefix}/find/${client_id}`);
+  }
+
+  getTopClients(): Observable<TopClient[]>{
+    return this.http.get<TopClient[]>(`${environment.apiUrl}${this.prefix}/top-clients`);
+  }
+
+  getCount(): Observable<MessageResponse>{
+    return this.http.get<MessageResponse>(`${environment.apiUrl}${this.prefix}/count`);
   }
 
   addClient(client : Client) : Observable<Client>{

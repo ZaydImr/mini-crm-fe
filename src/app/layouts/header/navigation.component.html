@@ -5,8 +5,9 @@
   <li class="nav-item" ngbDropdown placement="bottom-end">
     <a ngbDropdownToggle class="nav-link waves-effect waves-dark pro-pic" href="javascript:void(0)"
       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <img src="assets/images/users/user1.jpg" alt="user" class="rounded-circle" width="31" />
-      <span class="ms-2">{{username}} </span>
+      <img [src]="imageUrl ? imageUrl : 'assets/images/default-avatar.png'" alt="user" class="rounded-circle"
+        width="31" />
+      <span class="ms-2">{{fullname}} </span>
     </a>
     <div class="dropdown-menu-right" ngbDropdownMenu>
       <a class="dropdown-item" routerLink="profile"> My Profile</a>

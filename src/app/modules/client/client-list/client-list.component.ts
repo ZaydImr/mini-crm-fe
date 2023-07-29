@@ -5,6 +5,7 @@ import { ClientService } from 'src/app/services/client.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddEditClientComponent } from '../add-edit/add-edit-client.component';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   standalone: true,
@@ -65,6 +66,10 @@ export class ClientListComponent implements OnInit {
         this.toastr.error(`Something went wrong!`);
       }
     });
+  }
+
+  getImageUrl(logo: string): string {
+    return `${environment.apiUrl }file/find/${logo}`;
   }
 
 }
